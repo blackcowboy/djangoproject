@@ -26,7 +26,7 @@
             },
             // 图例-可筛选查看
             legend: {
-                data:['指标数据']
+                data:['交易量']
             },
             // 调整折线图位置
             grid: {
@@ -71,10 +71,10 @@
             },
             series: [
                 {
-                    name:'指标数据',
+                    name:'交易量',
                     type:'line',
                     smooth:true,
-                    color: '#7a7a7a', // 设置颜色
+                    color: '#18A8FF', // 设置颜色
                     data: {{ kpidata.data|safe }}
                 }
             ]
