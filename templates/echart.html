@@ -7,18 +7,17 @@
     <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 </head>
 <body>
-    {% for kpidata in list %}
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id='{{kpidata.index}}' style="width: 100%;height:200px;">
+    <div id='echarts_1' style="width: 100%;height:200px;">
 
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('{{kpidata.index}}'));
+    const myChart = echarts.init(document.getElementById('echarts_1'));
     // 指定图表的配置项和数据
-    var option = {
+    const option = {
             // 标题
             title: {
-                text: '{{ kpidata.total }}'
+                text: '折线图'
             },
             // 提示工具
             tooltip: {
@@ -60,30 +59,38 @@
                 }
             ],
             //  x轴
-            xAxis: {
+            yAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: {{ kpidata.axis|safe }}
+                data: ['00:00','00:01','00:02','00:03','00:04','00:05','00:06','00:07']
             },
             // y轴自动生成
-            yAxis: {
+            xAxis: {
                 type: 'value'
             },
             series: [
                 {
                     name:'交易量',
-                    type:'line',
+                    type:'bar',
                     smooth:true,
                     color: '#18A8FF', // 设置颜色
-                    data: {{ kpidata.data|safe }}
+                    data: [12,5,56,23,24,28,18,33]
                 }
             ]
         };
 
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
+    myChart.getZr().on('click',params=>{
+    const pointInPixel= [params.offsetX, params.offsetY];
+    if (myChart.containPixel('grid',pointInPixel)) {
+        let xIndex= myChart.convertFromPixel({seriesIndex:0},pointInPixel)[1];
+        console.log(params)
+        console.log(xIndex)
+	}
+});
+
     </script>
     </div>
-    {% endfor %}
 </body>
 </html>

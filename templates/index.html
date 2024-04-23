@@ -4,15 +4,46 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .check{
+        .system.check{
         background-color: aqua;
     }
     </style>
 
+    <script>
+        function f() {
+            var table = document.getElementById("table_id")
+            var button = document.getElementById("button_id")
+            if (table.style.display === "none"){
+                table.style.display="block"
+                button.innerText = "收起"
+            }else {
+                table.style.display="none"
+                button.innerText = "展开"
+            }
+
+        }
+    </script>
+
 </head>
 <body>
-    <div class="system check">这是div</div>
-    <div class="check">这是div</div>
+    <button id="button_id" onclick="f()">收起</button>
+    <table style="border: 1px solid black" id="table_id">
+        <tr>
+            <td>name</td>
+            <td>age</td>
+            <td>sex</td>
+        </tr>
+        <tr>
+            <td>小强</td>
+            <td>12</td>
+            <td>男</td>
+        </tr>
+        <tr>
+            <td>小方</td>
+            <td>11</td>
+            <td>男</td>
+        </tr>
+    </table>
 
 </body>
 </html>
