@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,7 +8,10 @@
         background-color: aqua;
     }
     </style>
-
+    <script>
+        const data = {{ data|safe }}
+        console.log(data)
+    </script>
     <script>
         function f() {
             var table = document.getElementById("table_id")
@@ -26,6 +29,13 @@
 
 </head>
 <body>
+    <form action="" method="post">
+        <input type="text" name="name">
+        <label for="time">日期:</label>
+        <input type="datetime-local" id="time" value="{{ data.strTime }}" name="time">
+        <input type="submit" value="提交">
+    </form>
+    <h1>{{ data.strTime }}</h1>
     <button id="button_id" onclick="f()">收起</button>
     <table style="border: 1px solid black" id="table_id">
         <tr>

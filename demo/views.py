@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import random
 from datetime import datetime, timedelta
+from django.http import HttpResponse
 import time
 import json
 
@@ -32,3 +33,15 @@ def echarsView(request):
     context = {}
     context['list'] = kpidataList
     return render(request, "echart.html", context=context)
+
+
+def getFormData(request):
+    if request.method == 'GET':
+        strTime = time.strftime('%Y-%m-%dT%H:%M')
+        data = {'strTime': strTime}
+        context = {'data': data}
+    else:
+        strtime = request.POST.get('time')
+        data = {'strTime': strtime}
+        context = {'data': data}
+    return render(request, 'index.html', context=context)
