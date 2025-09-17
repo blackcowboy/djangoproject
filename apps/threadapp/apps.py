@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class ThreadappConfig(AppConfig):
-    name = 'threadapp'
+    name = 'apps.threadapp'

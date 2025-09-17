@@ -1,25 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Collapsible List</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static '/css/test.css' %}">
+    <meta charset="utf-8">
+    <title>ECharts 地图表格联动</title>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.staticfile.org/echarts/5.4.0/echarts.min.js"></script>
+    <!-- 引入中国地图数据 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
 </head>
 <body>
+    <!-- 地图容器 -->
+    <div id="map" style="width: 800px; height: 600px;display: inline-block"></div>
 
-    <button class="collapsible" onclick="toggleContent(event)">点击我展开/收起内容</button>
-    <div id="content" class="content">这里是需要展开或收起的内容。</div>
+    <!-- 数据表格 -->
+    <table border="1" id="dataTable" style="display: inline-block">
+        <thead>
+            <tr>
+                <th>地区</th>
+                <th>GDP</th>
+                <th>人口</th>
+                <th>增长率</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- 数据将通过JavaScript填充 -->
+        </tbody>
+    </table>
 
     <script>
-        function toggleContent(e) {
-            var content = document.getElementById("content");
+        // 模拟数据（实际使用时需要替换为真实数据）
+        const regionData = {
+            '北京': { GDP: 40269, population: 2189, growth: 6.2 },
+            '上海': { GDP: 38701, population: 2487, growth: 6.5 },
+            '广东': { GDP: 124369, population: 12601, growth: 7.0 },
+            // 添加更多省份数据...
+        };
 
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
+        // 初始化图表
+        const myChart = echarts.init(document.getElementById('map'));
+
+        // 图表配置
+        const option = {
+            title: {
+                text: '中国地图数据展示'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            series: [{
+                type: 'map',
+                map: 'china',
+                roam: true,
+                label: {
+                    show: true,
+                    fontSize: 12
+                },
+                itemStyle: {
+                    areaColor: '#eee',
+                    borderColor: '#444'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        color: '#333'
+                    },
+                    itemStyle: {
+                        areaColor: '#ffd700'
+                    }
+                }
+            }]
+        };
+
+        // 设置图表选项
+        myChart.setOption(option);
+
+        // 初始化表格数据（默认显示北京）
+        updateTable('北京');
+
+        // 监听地图点击事件
+        myChart.on('click',  (params) => {
+            if (params.componentType  === 'series' && params.seriesType  === 'map') {
+                const regionName = params.name;
+                updateTable(regionName);
             }
+        });
+
+        // 更新表格的函数
+        function updateTable(regionName) {
+            const data = regionData[regionName];
+            const tbody = document.getElementById('tableBody');
+
+            // 清空现有数据
+            tbody.innerHTML  = '';
+
+            // 创建新行
+            const row = document.createElement('tr');
+            row.innerHTML  = `
+                <td>${regionName}</td>
+                <td>${data.GDP}亿元</td>
+                <td>${data.population} 万人</td>
+                <td>${data.growth}%</td>
+            `;
+            tbody.appendChild(row);
         }
     </script>
 </body>

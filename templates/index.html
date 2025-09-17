@@ -30,12 +30,12 @@
 </head>
 <body>
     <form action="" method="post">
-        <input type="text" name="name">
         <label for="time">日期:</label>
-        <input type="datetime-local" id="time" value="{{ data.strTime }}" name="time">
+        <input type="datetime-local" id="time" name="time">
+        <label for="keys">关键字:</label>
+        <input type="text" id="keys"  placeholder="请输入关键字" name="keys">
         <input type="submit" value="提交">
     </form>
-    <h1>{{ data.strTime }}</h1>
     <button id="button_id" onclick="f()">收起</button>
     <table style="border: 1px solid black" id="table_id">
         <tr>
@@ -54,6 +54,17 @@
             <td>男</td>
         </tr>
     </table>
-
+    <script>
+      table_dom = document.getElementById('table_id')
+       if(Object.keys(data).length){
+           table_dom.style.display='block'
+           time_dom = document.getElementById('time')
+           time_dom.value='{{ strTime }}'
+           keys_dom = document.getElementById('keys')
+           keys_dom.value='{{ keys }}'
+       }else {
+           table_dom.style.display='none'
+       }
+    </script>
 </body>
 </html>

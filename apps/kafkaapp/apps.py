@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class KafkaappConfig(AppConfig):
-    name = 'kafkaapp'
+    name = 'apps.kafkaapp'

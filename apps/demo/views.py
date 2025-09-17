@@ -11,7 +11,7 @@ def index(request):
     context = {
         'username': 'niuxiaofu'
     }
-    return render(request, "index.html", context=context)
+    return render(request, "test.html", context=context)
 
 
 def echarsView(request):
@@ -37,11 +37,15 @@ def echarsView(request):
 
 def getFormData(request):
     if request.method == 'GET':
-        strTime = time.strftime('%Y-%m-%dT%H:%M')
-        data = {'strTime': strTime}
+        # strTime = time.strftime('%Y-%m-%dT%H:%M')
+        # data = {'strTime': strTime}
+        data = {}
         context = {'data': data}
     else:
         strtime = request.POST.get('time')
+        keys = request.POST.get('keys')
         data = {'strTime': strtime}
         context = {'data': data}
+        context['strTime'] = strtime
+        context['keys'] = keys
     return render(request, 'index.html', context=context)

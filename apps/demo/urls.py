@@ -1,8 +1,8 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
     path('index', views.index),
     path('echarsView', views.echarsView),
-    path('getFormData', views.getFormData)
+    path('getFormData', views.getFormData),
 ]

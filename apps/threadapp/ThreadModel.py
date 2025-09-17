@@ -1,6 +1,7 @@
 import threading
 import time
 
+
 class myThread(threading.Thread):
     def __init__(self, name, func, args=()):
         super(myThread, self).__init__()
@@ -54,6 +55,7 @@ def main():
         result.append(res1)
         result.append(res2)
     print(result)
+
 
 main()
 
