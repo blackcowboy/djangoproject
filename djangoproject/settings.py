@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.kafkaapp',
-    'apps.demo'
+    'apps.demo',
+    'apps.threadapp'
 ]
 
 MIDDLEWARE = [

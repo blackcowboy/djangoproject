@@ -2,6 +2,7 @@ from django.shortcuts import render
 import random
 from datetime import datetime, timedelta
 from django.http import HttpResponse
+from public.util.MsgUtil import ResponseUtil
 import time
 import json
 
@@ -11,7 +12,7 @@ def index(request):
     context = {
         'username': 'niuxiaofu'
     }
-    return render(request, "test.html", context=context)
+    return ResponseUtil.ResultOK(data=context)
 
 
 def echarsView(request):
@@ -37,8 +38,6 @@ def echarsView(request):
 
 def getFormData(request):
     if request.method == 'GET':
-        # strTime = time.strftime('%Y-%m-%dT%H:%M')
-        # data = {'strTime': strTime}
         data = {}
         context = {'data': data}
     else:

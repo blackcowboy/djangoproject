@@ -18,5 +18,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('demo/', include('demo.urls'))
+    # path('demo/', include('apps.demo.urls'))
 ]
+
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+for a in (BASE_DIR / 'apps').iterdir():
+    urlpatterns.append(path(a.name + '/', include('apps.' + a.name + '.urls')))
