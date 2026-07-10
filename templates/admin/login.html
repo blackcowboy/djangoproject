@@ -1,0 +1,30 @@
+{% extends "admin/login.html" %}
+{% load static %}
+{% block extrahead %}
+    <!-- jsencrypt 前端RSA加密库 -->
+    <script src="{% static 'js/jsencrypt.min.js' %}"></script>
+    <script>
+        window.onload = function () {
+            const publicKey = `{{ rsa_public_key }}`;
+            const encryptor = new JSEncrypt();
+            encryptor.setPublicKey(publicKey);
+
+            const form = document.getElementById('login-form');
+            const pwdInput = document.querySelector('input[name="password"]');
+
+            form.addEventListener('submit', function (e) {
+                const rawPwd = pwdInput.value.trim();
+                if (!rawPwd) return;
+
+                // RSA加密原始密码，覆盖输入框值，提交密文
+                const encrypted = encryptor.encrypt(rawPwd);
+                if (!encrypted) {
+                    alert("密码加密失败，密码过长或格式错误");
+                    e.preventDefault();
+                    return;
+                }
+                pwdInput.value = encrypted;
+            })
+        }
+    </script>
+{% endblock %}

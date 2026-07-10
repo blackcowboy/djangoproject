@@ -15,13 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from pathlib import Path
+from admin_custom_view import CustomRsaAdminLoginView
 
 urlpatterns = [
+    path("admin/login/", CustomRsaAdminLoginView.as_view(), name="admin_login"),
     path('admin/', admin.site.urls),
     # path('demo/', include('apps.demo.urls'))
 ]
 
-from pathlib import Path
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 for a in (BASE_DIR / 'apps').iterdir():
     urlpatterns.append(path(a.name + '/', include('apps.' + a.name + '.urls')))

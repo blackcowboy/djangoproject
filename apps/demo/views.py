@@ -3,6 +3,7 @@ import random
 from datetime import datetime, timedelta
 from django.http import HttpResponse
 from public.util.MsgUtil import ResponseUtil
+from public.util.rsa_utils import generate_rsa_key
 import time
 import json
 
@@ -48,3 +49,9 @@ def getFormData(request):
         context['strTime'] = strtime
         context['keys'] = keys
     return render(request, 'index.html', context=context)
+
+
+def rsa_key(request):
+    generate_rsa_key()
+    return ResponseUtil.ResultOK(msg='生成公私钥')
+
